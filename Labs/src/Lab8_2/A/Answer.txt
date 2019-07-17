@@ -1,0 +1,16 @@
+ 1)If two Employee objects have the same name, what is the return value of compare? 
+ 	Answer:
+ 	It will return 0 if two objects have the same name;
+ 
+ 2)This tells us that these Employee objects should be equal, but is this always true?
+ 	Answer:
+ 	If all other properties are same in two employee, they are equal. Otherwise, not equal.
+ 	
+ 3)Give an example of two Employee objects having the same name but that should not be considered equal.
+	Answer:
+	These emps have same name but different salary. Shouldn't be equal.
+ 		List<Employee> emps = new ArrayList<>();
+		emps.add(new Employee("Joe", 100000));
+		emps.add(new Employee("Joe", 50000));
+		
+4)Rewrite implements in EmployeeComparator.java

@@ -1,0 +1,5 @@
+The reason of get a false is HashMap<Employee, Employee> tracker’s key are Employee's 
+hashCode(). If not override the Employee's hashCode, it default is Employee's reference.
+
+To solve this problem, change the method listsAreEqual()'s contains() method to equals()
+ method.

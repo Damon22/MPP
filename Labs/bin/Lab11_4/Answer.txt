@@ -1,0 +1,23 @@
+4.
+public static double sum(Collection<? extends Number> nums) {
+	double s = 0.0;
+	for (Number num : nums) s += num.doubleValue();
+	return s;
+}
+
+4.a
+List<Integer> ints = new ArrayList<Integer>();
+ints.add(1);
+ints.add(2);
+List<? extends Number> nums = ints;
+double db1 = sum(nums);
+nums.add(3.14);		<<< compile error: When the extends wildcard is used to define a 
+				parametrized type, the type cannot be used for adding new elements.
+				
+4.b
+List<Object> objs = new ArrayList<Object>();
+objs.add(1);
+objs.add("two");
+List<? super Integer> ints = objs;
+ints.add(3);
+double db1 = sum(ints);		<<< compile error: string "two" is not Number type.

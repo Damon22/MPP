@@ -1,0 +1,31 @@
+1.a
+	Answer: code is executed with result: 1
+	If do not use distinct(), it will continue to generate 1.
+	If you just want one, you can change to limit(1).
+	Example:
+	IntStream ones = IntStream.generate(()->1).limit(1);
+	ones.forEach(System.out::println);
+	
+1.b
+	Answer:
+	System.out.println(Stream.of(new String[] {"Bill", "Thomas", "Mary"}).collect(Collectors.joining(",")));
+	
+1.c
+	Answer:
+		List<Integer> myIntStream = Arrays.asList(1,3,5,7,9);
+//		int max = myIntStream.stream().max(Integer::compare).get();
+//		int min = myIntStream.stream().min(Integer::compare).get();
+		int max = myIntStream.stream().mapToInt(i->i).max().getAsInt();
+		int min = myIntStream.stream().mapToInt(i->i).min().getAsInt();
+		System.out.printf("this is %d and %d\n",max, min);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

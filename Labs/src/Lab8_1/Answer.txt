@@ -1,0 +1,175 @@
+Short answer
+a. Name two differences between imperative and functional programming
+	Answer:
+	1)Functional programming decrease the mutable variables than imperative have.
+	2)Functional programming does not cause a change of state. It doesn't have the side effects. But imperative may have. 
+	3)Imperative needs to implement the detail of function. Functional programming does care about the step.
+
+
+b. Explain the meaning of declarative programming. Give an example. (optional)
+	Answer:
+	Declarative programming is more focus on what you want to do, rather than how to do. Like functional programming and SQL, they care about flows to get result, not how to implement.
+	Example:
+	int[] a = new int[] {1,2,3,4,5};
+	/** Imperative programming */
+	for (int i = 0; i < a.length; i++) {
+		System.out.println(a[i]);
+	}
+	/** Declarative programming */
+	Arrays.stream(a).forEach(System.out::println);
+
+
+c. Explain the difference between functional interface, functor, and closure, and give examples of
+each using Java 7 syntax (optional)
+	Answer:
+	A functional interface is an interface that contains only one abstract method.
+	Example:
+	@FunctionalInterface
+	interface Square {
+		int calculate(int x);
+	}
+	class Test {
+		public static void main(String args[]) {
+			int a = 5;
+			Square s = (int x)->x*x;
+			System.out.println(s.calculate(a));
+		}
+	}
+	
+	A functor is a typed data structure that encapsulates some values. It's a container.
+	Example:
+	interface Functor<T, F extends Functor<?,?>> {
+		<R> F map(Function<T,R> f);
+	}
+	class Identity<T> implements Functor<T, Identity<?>> {
+		private final T value;
+		Identity(T value) { this.value = value; }
+		public <R> Identity<R> map(Function<T, R> f) {
+			final R result = f.apply(value);
+			return new Identity<>(result);
+		}
+	}
+	
+	A closure is a combination of a function bundled together with references to its surrounding state.
+	Example:
+	static void closure() {
+		Function<Integer, String> getTextOfWeeekday = num -> {
+			String[] weeks = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+			return (num > 0 && num <= weeks.length) ? weeks[num-1] : null;
+		}
+		System.out.println(getTextOfWeeekday.apply(3));
+	}
+	
+	
+d. Name three benefits of including functional style programming in Java
+	Answer:
+	1)Functional programming can decrease the mutable variable, make program more safety.
+	2)Functional programming does not cause a change of state.
+	3)Functional programming has simpler methods and purely functional.
+
+
+e. For each lambda expression below, name the parameters and the free variables.
+	Answer:
+	i. 
+	int s = 10, t = 10;
+	Runnable r = () -> {
+		int[][] products = new int[s][t]; 
+		for (int i = 0; i < s; i++) {
+			for(int j = i + 1; j < t; j++) {
+				products[i][j] = i * j;
+			} 
+		}
+	};
+	
+	ii.
+	Boolean ignoreCase = false;
+	Comparator<String> comp = (s, t) -> {
+		if(ignoreCase == true) {
+			return s.compareToIgnoreCase(t);
+		} else {
+			return s.compareTo(t);
+		} 
+	};
+	
+	
+f. In the lecture, one of the examples of a method reference of type object::instanceMethod was this::equals. Since every lambda expression must be converted to a functional interface, find a functional interface in the java.util.function package that would be used for this lambda expression.
+		Hint #1: The implicit reference `this’ refers to the currently active object. So, to answer this question, create a class MyClass in which you have referenced this::equals with an appropriate type; add a method myMethod(MyClass cl) which uses this method expression to return true if cl is equal to ‘this’.
+		Hint #2: Take a look at the api docs here: http://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html
+	Answer:
+	Example: Also see in Package Lab8_1.f
+	public class MyClass {
+		public static void main(String[] args) {
+			MyClass m1 = new MyClass();
+			MyClass m2 = new MyClass();
+			System.out.println(m1.myMethod(m2));
+		}
+		boolean myMethod(MyClass cl) {
+			Predicate<MyClass> pre = this::equals;
+			return pre.test(cl);
+		}
+	}
+
+
+g. An example of a method reference is
+                         System.out::println
+	Do the following:
+		i. Convert this method reference to a lambda expression.
+		ii. Determine which type of method reference this is (in the lecture three different types of method reference were mentioned). Explain carefully.
+	Answer:
+	i: Consumer<String> c = (String str) -> System.out.println(str);
+	ii: System.out.println(); 
+		In foreach code; 
+		The “accept” method in Consumer;
+		The “handle” method in EventHandler;
+
+
+j. An example of a method reference is:
+						Math::random
+		Its corresponding functional interface is Supplier<Double>. Do the following:
+		i. Rewrite this method reference as a lambda expression
+		ii. Put this method expression in a main method in a Java class and use it to print a random number to the console
+		iii. Create an equivalent Java class in which the functional behavior of Math::random is expressed using an inner class (implementing Supplier); call this inner class from a main method and use it to output a random number to the console. The behavior should be the same as in part b.
+	Answer:
+	i:
+	DoubleSupplier d = Math::random;
+	DoubleSupplier d = ()->Math.random();
+	Supplier<Double> s = Math::random;
+	Supplier<Double> s = ()->Math.random();
+	
+	ii:
+	See example in Package Lab8_1.j	Main.java
+	public class Main {
+		public static void main(String[] args) {
+			DoubleSupplier d = Math::random;
+			Supplier<Double> s = Math::random;
+			System.out.println(d.getAsDouble());
+			System.out.println(s.get());
+		}
+	}
+	
+	iii:
+	See example in Package Lab8_1.j MyMath.java
+	public class MyMath {
+		public static void main(String[] args) {
+			MyMath my = new MyMath();
+			System.out.println(my.getRandom());
+		}
+		Double getRandom() {
+			Supplier<Double> sd = new Supplier<>() {
+				@Override
+				public Double get() {
+					return Math.random();
+				}
+			};
+			return sd.get();
+		}
+	}
+	
+	
+	
+	
+		
+		
+		
+		
+		

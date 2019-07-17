@@ -1,0 +1,2 @@
+Function<Employee, String> getName = x -> x.getName();
+Function<Employee, String> getName = x::getName();

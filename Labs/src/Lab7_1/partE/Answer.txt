@@ -1,0 +1,16 @@
+i. When the type D is a class
+If B and C are all interface, and not implement the method() method in them. When D 
+implements B and C, like 'public class D implements B, C'. You need to implement the 
+method(), default will implement the B's method();
+
+If B and C are all interface, and only implement the method() method in B use default.
+When D implements B and C, you need to implement the method() from C.java or Override the 
+method() inherit from B.java. If you want to use super method in B, you need to implement 
+B.super.method() in D's method().
+
+
+
+ii. When the type D is an interface.
+If D is a interface, D needs to extends B and C. If B and C are not implement method() 
+from A. Then D doesn't need to implement method(); if B or C, then D needs to implement
+method(), or Override method() with default.

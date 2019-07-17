@@ -1,0 +1,6 @@
+The reason of get a false is in the Employee's equals() method. Because it compare with 
+the Boolean property visited. But EmployeeInfo class doesn't have initialized the Employee 
+class with visited.
+
+To solve this problem, change the method equals() in Employee and set '&& emp.visited == 
+visited;' to '|| emp.visited == visited;' .

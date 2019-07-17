@@ -1,0 +1,4 @@
+The reason of get a false is Not Override the Employee's equals method. List.contains()
+method is compare use equals() method.
+
+To solve this problem, override the method equals() in EmployeeInfo.

@@ -1,0 +1,15 @@
+1.a
+List<Integer> ints = new ArrayList<Integer>();
+ints.add(1);
+ints.add(2);
+List<Number> nums = ints; <<< compiler error: nums needs same type to ints.
+nums.add(3.14);  
+
+1.b
+List<Integer> ints = new ArrayList<Integer>();
+ints.add(1);
+ints.add(2);
+List<? extends Number> nums = ints; 
+nums.add(3.14);  <<< compiler error: When the extends wildcard is used to define a 
+				parametrized type, the type cannot be used for adding new elements.
+					
